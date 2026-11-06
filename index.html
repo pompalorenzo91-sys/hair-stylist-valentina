@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5f0">
+  <title>Hair Stylist Valentina Di Caterino</title>
+  <style>
+    :root{--ink:#282321;--muted:#77716c;--line:#e8e1d9;--green:#91c5b1;--paper:#f7f5f0;--white:#fff}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+    header{text-align:center;padding:54px 20px 28px}
+    .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+    h1{font-family:Georgia,serif;font-size:clamp(35px,8vw,58px);font-weight:400;line-height:1.08;margin:14px auto;max-width:720px}
+    header p{color:var(--muted);font-size:17px;line-height:1.5;max-width:540px;margin:12px auto}
+    main{max-width:760px;margin:0 auto;padding:12px 18px 54px}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,6vw,48px);box-shadow:0 12px 35px #33261a0a}
+    h2{font-family:Georgia,serif;font-size:clamp(32px,7vw,46px);font-weight:400;margin:0 0 28px}
+    label{display:block;font-size:15px;color:#69635e;margin:20px 0 9px}
+    input,select,textarea{width:100%;border:1px solid var(--line);border-radius:17px;padding:17px 16px;font:16px Arial;color:var(--ink);background:#fff;min-height:58px}
+    textarea{min-height:112px;resize:vertical}
+    input:focus,select:focus,textarea:focus{outline:2px solid #91c5b155;border-color:var(--green)}
+    button{width:100%;border:0;border-radius:18px;background:var(--green);color:#fff;font-size:15px;font-weight:700;letter-spacing:.04em;padding:21px 16px;margin-top:28px;cursor:pointer}
+    button:active{transform:scale(.99)}
+    .note{font-size:14px;line-height:1.6;color:var(--muted);margin:18px 0 0}
+    footer{text-align:center;color:var(--muted);font-size:14px;padding:0 18px 42px}
+    .required{color:#a36e5b}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Prenota il tuo momento di bellezza</div>
+    <h1>Hair Stylist<br>Valentina Di Caterino</h1>
+    <p>Prenditi cura dei tuoi capelli. Richiedi il tuo appuntamento.</p>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Richiedi un appuntamento</h2>
+      <form id="bookingForm">
+        <label for="name">Nome e cognome <span class="required">*</span></label>
+        <input id="name" name="name" autocomplete="name" placeholder="Il tuo nome e cognome" required>
+        <label for="treatment">Trattamento <span class="required">*</span></label>
+        <select id="treatment" name="treatment" required>
+          <option value="">Seleziona un trattamento</option>
+          <option>Piega</option><option>Taglio</option><option>Colore</option>
+          <option>Colore e piega</option><option>Meches / Balayage</option>
+          <option>Trattamento capelli</option><option>Altro</option>
+        </select>
+        <label for="day">Giorno preferito <span class="required">*</span></label>
+        <input id="day" name="day" type="date" required>
+        <label for="time">Orario preferito <span class="required">*</span></label>
+        <input id="time" name="time" type="time" required>
+        <label for="notes">Note (facoltative)</label>
+        <textarea id="notes" name="notes" placeholder="Scrivi qui eventuali richieste..."></textarea>
+        <button type="submit">INVIA RICHIESTA SU WHATSAPP</button>
+        <p class="note">La richiesta verrà inviata a Valentina su WhatsApp. L'appuntamento sarà confermato solo dopo la sua risposta.</p>
+      </form>
+    </section>
+  </main>
+  <footer>Hair Stylist Valentina Di Caterino</footer>
+  <script>
+    const WHATSAPP_NUMBER = "393270710336";
+    document.getElementById("day").min = new Date().toISOString().split("T")[0];
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const data = new FormData(this);
+      const message = [
+        "Ciao Valentina! Vorrei richiedere un appuntamento.",
+        "",
+        "Nome: " + data.get("name"),
+        "Trattamento: " + data.get("treatment"),
+        "Giorno preferito: " + data.get("day"),
+        "Orario preferito: " + data.get("time"),
+        "Note: " + (data.get("notes") || "Nessuna")
+      ].join("\n");
+      window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
+    });
+  </script>
+</body>
+</html>
